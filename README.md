@@ -5,6 +5,9 @@ A modular IOT POC leveraging a message broker architecture with modular subs tha
 
 Additionally the idea was that the front end could also publish to broker where iot devices compatible with mqtt natively integrate
 
+<img width="533" alt="image" src="https://user-images.githubusercontent.com/37164299/211138713-60bbc7f6-a31e-4f04-bca5-ce356b9d98b4.png">
+
+
 ### `npm start`
 
 Runs the app in the development mode.\
