@@ -1,9 +1,6 @@
-// import React, { useState, Fragment } from "react";
 import "./App.css";
-// import "./devices/tv/tv"
-// import Buttons from "./devices/tv/tv";
-
 var mqtt = require("mqtt");
+
 const mqttAddress = "localhost";
 const mqttPort = "15675"
 var options = {
@@ -17,32 +14,48 @@ var options = {
 };
 var client = mqtt.connect("mqtt://" + mqttAddress + ":" + mqttPort + "/ws", options);
  
-// client.subscribe("publishtopic");
-// client.subscribe("topic/test");
+const HandleClick = (e) => {
+  console.log("clicked");
 
-console.log("Client subscribed ");
- 
-const HandleClick = () =>{
-  client.publish("topic/test", "helloworld");
+  console.log(e.target.id);
+
+  switch(e.target.id) {
+    case 'volumeup':
+      client.publish("webos/volume", "up");
+    break;
+    case 'volumedown':
+      client.publish("webos/volume", "down");
+    break;
+    case 'mute':
+      client.publish("webos/volume", "mute");
+    break;
+    case 'remoteup':
+      client.publish("webos/remote", "up");
+    break;
+    case 'remotedown':
+      client.publish("webos/remote", "down");
+    break;
+    case 'remoteok':
+      client.publish("webos/remote", "ok");
+    break;
+    default:
+  }
 }
 
 function App() {
-  var note;
-  client.on("message", function (topic, message) {
-    note = message.toString();
-    // Updates React state with message
-    // setMsg(note);
-    console.log(note);
-    client.end();
-  });
  
   return (
     <div className="App">
 
       <header className="App-header">
         <h1>Pimview Frontend</h1>
-        <button className={"GoodBtn"} onClick={HandleClick()}>Volume UP</button>
-        {/* <button className={"GoodBtn"} onClick={HandleClick()}>Volume Down</button> */}
+        <button id={"volumeup"} onClick={((e) => HandleClick(e))}>Volume UP</button>
+        <button id={"volumedown"} onClick={HandleClick}>Volume Down</button>
+        <button id={"mute"} onClick={HandleClick}>Mute</button>
+
+        <button id={"remoteup"} onClick={HandleClick}>Remote UP</button>
+        <button id={"remotedown"} onClick={HandleClick}>Remote Down</button>
+        <button id={"remoteok"} onClick={HandleClick}>Remote OK</button>
       </header>
     </div>
   );
