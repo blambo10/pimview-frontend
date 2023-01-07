@@ -7,6 +7,9 @@ Additionally the idea was that the front end could also publish to broker where 
 
 <img width="533" alt="image" src="https://user-images.githubusercontent.com/37164299/211138713-60bbc7f6-a31e-4f04-bca5-ce356b9d98b4.png">
 
+### `run the mqtt broker`
+
+Current implementation uses rabitmq with the mqtt and websocket plugins enabled
 
 ### `npm start`
 
