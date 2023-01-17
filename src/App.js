@@ -17,20 +17,11 @@ var client = mqtt.connect("mqtt://" + mqttAddress + ":" + mqttPort + "/ws", opti
  
 function App() {
  
+  document.body.style.backgroundColor = "grey"
   return (
     <div className="App">
-
-      <header className="App-header">
-        <h1>Pimview Frontend</h1>
+        <h1>Pimview</h1>
         <TvDevice mqttclient={client} />
-        {/* <button id={"volumeup"} onClick={((e) => HandleClick(e))}>Volume UP</button>
-        <button id={"volumedown"} onClick={HandleClick}>Volume Down</button>
-        <button id={"mute"} onClick={HandleClick}>Mute</button>
-
-        <button id={"remoteup"} onClick={HandleClick}>Remote UP</button>
-        <button id={"remotedown"} onClick={HandleClick}>Remote Down</button>
-        <button id={"remoteok"} onClick={HandleClick}>Remote OK</button> */}
-      </header>
     </div>
   );
 }
