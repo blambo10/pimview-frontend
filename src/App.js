@@ -1,5 +1,6 @@
 import "./App.css";
 import TvDevice from './Devices/TV/Tv.js';
+import AVRDevice from './Devices/AVR/Avr.js';
 var mqtt = require("mqtt");
 
 const mqttAddress = "localhost";
@@ -22,6 +23,9 @@ function App() {
     <div className="App">
         <h1>Pimview</h1>
         <TvDevice mqttclient={client} />
+        <br></br>
+        <AVRDevice mqttclient={client} />
+        
     </div>
   );
 }

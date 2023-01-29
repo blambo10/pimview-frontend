@@ -24,28 +24,28 @@ function HandleClick(e, client) {
   
     switch(e) {
       case 'volumeup':
-        client.publish("webos/volume", "up");
+        client.publish("denonavr/volume", "up");
       break;
       case 'volumedown':
-        client.publish("webos/volume", "down");
+        client.publish("denonavr/volume", "down");
       break;
       case 'mute':
-        client.publish("webos/volume", "mute");
+        client.publish("denonavr/volume", "mute");
       break;
       case 'remoteup':
-        client.publish("webos/remote", "up");
+        client.publish("denonavr/remote", "up");
       break;
       case 'remotedown':
-        client.publish("webos/remote", "down");
+        client.publish("denonavr/remote", "down");
       break;
       case 'remoteok':
-        client.publish("webos/remote", "ok");
+        client.publish("denonavr/remote", "ok");
       break;
       default:
     }
 }
 
-export default function TvDevice(props) {
+export default function DenonAVRDevice(props) {
   const theme = useTheme();
 
   return (
@@ -53,7 +53,7 @@ export default function TvDevice(props) {
       <Box sx={{ display: 'flex', flexDirection: 'column' }}>
         <CardContent sx={{ flex: '1 0 auto' }}>
           <Typography component="div" variant="h5">
-            LG TV
+            Home Theater
           </Typography>
           {/* <Typography variant="subtitle1" color="text.secondary" component="div">
             Mac Miller
