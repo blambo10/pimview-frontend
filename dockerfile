@@ -13,6 +13,7 @@ COPY package-lock.json ./
 
 #TODO issue with react try running commented with explicit react dnd install and see if error can be reproduced. 
 
+RUN npm install
 RUN npm install mqtt
 RUN npm install @mui/material 
 RUN npm install @emotion/react 
