@@ -5,7 +5,7 @@ FROM node:13.12.0-alpine
 WORKDIR /app
 
 # add `/app/node_modules/.bin` to $PATH
-ENV PATH /node_modules/.bin:$PATH
+ENV PATH /app/node_modules/.bin:$PATH
 
 # install app dependencies
 COPY package.json ./
@@ -21,4 +21,5 @@ RUN npm install @mui/icons-material
 COPY . ./
 
 # start app
-CMD ["npm", "start"]
+CMD ["tail", "-f", "/dev/null"]
+# CMD ["npm", "start"]
