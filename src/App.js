@@ -1,7 +1,7 @@
+import mqtt from "mqtt/dist/mqtt";
 import "./App.css";
 import TvDevice from './Devices/TV/Tv.js';
 import AVRDevice from './Devices/AVR/Avr.js';
-var mqtt = require("mqtt");
 
 const mqttAddress = process.env.REACT_APP_PIMVIEW_RABBITMQ_MQTT_ADDRESS;
 const mqttUsername = process.env.REACT_APP_PIMVIEW_RABBITMQ_MQTT_USER;
