@@ -18,6 +18,8 @@ RUN npm install @mui/material @emotion/react @emotion/styled
 RUN npm install @mui/icons-material
 
 # add app
+RUN pwd
+RUN ls
 COPY . ./
 
 # start app
