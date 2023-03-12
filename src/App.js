@@ -3,12 +3,16 @@ import TvDevice from './Devices/TV/Tv.js';
 import AVRDevice from './Devices/AVR/Avr.js';
 var mqtt = require("mqtt");
 
-const mqttAddress = "localhost";
-const mqttPort = "15675"
+const mqttAddress = process.env.REACT_APP_PIMVIEW_RABBITMQ_MQTT_ADDRESS;
+const mqttUsername = process.env.REACT_APP_PIMVIEW_RABBITMQ_MQTT_USER;
+const mqttPassword = process.env.REACT_APP_PIMVIEW_RABBITMQ_MQTT_PASSWORD;
+const mqttPort = process.env.REACT_APP_PIMVIEW_RABBITMQ_MQTT_PORT;
+
 var options = {
+  
   protocol: "ws",
-  // username: "xxxxxxxxx",
-  // password: "xxxxxxxx",
+  username: mqttUsername,
+  password: mqttPassword,
   keepalive: 20,
   // clientId uniquely identifies client
   // choose any string you wish
@@ -18,6 +22,9 @@ var client = mqtt.connect("mqtt://" + mqttAddress + ":" + mqttPort + "/ws", opti
  
 function App() {
  
+  console.log(mqttUsername);
+  console.log(mqttPassword);
+  
   document.body.style.backgroundColor = "grey"
   return (
     <div className="App">
