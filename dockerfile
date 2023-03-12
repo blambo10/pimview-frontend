@@ -21,4 +21,4 @@ RUN npm install @mui/icons-material
 COPY . ./
 
 # start app
-CMD ["npm", "./node_modules/.bin/react-scripts/start"]
+CMD ["npm", "start"]
