@@ -2,7 +2,7 @@
 FROM node:13.12.0-alpine
 
 # set working directory
-# WORKDIR /app
+WORKDIR /app
 
 # add `/app/node_modules/.bin` to $PATH
 ENV PATH /node_modules/.bin:$PATH
@@ -21,4 +21,4 @@ RUN npm install @mui/icons-material
 COPY . ./
 
 # start app
-CMD ["npm", "start"]
+CMD ["npm", "./node_modules/.bin/react-scripts/start"]
