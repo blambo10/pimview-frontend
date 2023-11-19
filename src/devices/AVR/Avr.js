@@ -1,4 +1,5 @@
 // import React from 'react';
+import { useState, useEffect } from 'react';
 import * as React from 'react';
 import { useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
@@ -14,6 +15,8 @@ import VolumeDownIcon from '@mui/icons-material/VolumeDown';
 import VolumeUpIcon from '@mui/icons-material/VolumeUp';
 import VolumeOffIcon from '@mui/icons-material/VolumeOff';
 import TvIcon from '@mui/icons-material/Tv';
+import { Slider, VolumeDown, VolumeUp } from '@mui/material';
+import Stack from '@mui/material/Stack';
 
 function HandleClick(e, client) {
     console.log("clicked");
@@ -47,6 +50,40 @@ function HandleClick(e, client) {
 
 export default function DenonAVRDevice(props) {
   const theme = useTheme();
+  const topic = "denonavr/currentvolume";
+
+  // const [currentVolume, setCurrentVolume] = useState(5);
+  let currentVolume = 5;
+
+  const handleSliderChange = (newValue) => {
+    // setValue(newValue as number);
+    console.log(newValue);
+  };
+
+  // Similar to componentDidMount and componentDidUpdate:
+  useEffect(() => {
+    // Update the document title using the browser API
+    // document.title = `You clicked ${count} times`;
+
+    console.log('checking volume')
+
+    console.log("checking")
+
+    props.mqttclient.subscribe(topic, (err) => {
+      if (err) {
+        console.log(err);
+      }
+    });
+
+    props.mqttclient.on("message", (topic, message) => {
+      // message is Buffer
+      console.log(topic);
+      console.log(message.toString());
+      // setCurrentVolume(message.toString());
+      // props.mqttclient.end();
+      currentVolume = message.toString();
+    });
+  }, []);
 
   return (
     <Card sx={{ display: 'flex' }}>
@@ -59,6 +96,26 @@ export default function DenonAVRDevice(props) {
             Mac Miller
           </Typography> */}
         </CardContent>
+        {/* <Stack spacing={2} direction="row" sx={{ mb: 1 }} alignItems="center"> */}
+            {/* <VolumeDown /> */}
+            {/* <Slider aria-label="Volume" value={value} onChange={handleChange} /> */}
+            <Slider 
+              aria-label="Small" 
+              value={currentVolume}
+              onChange={handleSliderChange} 
+              valueLabelDisplay="auto" 
+              min={0}
+              max={75} />
+
+<Slider
+value={currentVolume} 
+  size="small"
+  // defaultValue={70}
+  aria-label="Small"
+  valueLabelDisplay="auto"
+/>
+            {/* <VolumeUp /> */}
+          {/* </Stack> */}
         <Box sx={{ display: 'flex', alignItems: 'center', pl: 1, pb: 1 }}>
           <IconButton aria-label="volumedown" id="volumedown" onClick={(e) => HandleClick("volumedown", props.mqttclient)}>
             <VolumeDownIcon id="volumedown" sx={{ height: 38, width: 38 }} />
@@ -71,7 +128,9 @@ export default function DenonAVRDevice(props) {
               <VolumeOffIcon sx={{ height: 38, width: 38 }} />
             {/* {theme.direction === 'rtl' ? <SkipPreviousIcon /> : <SkipNextIcon />} */}
           </IconButton>
+
         </Box>
+        
       </Box>
     </Card>
   );

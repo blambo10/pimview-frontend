@@ -32,7 +32,6 @@ function App() {
         <TvDevice mqttclient={client} />
         <br></br>
         <AVRDevice mqttclient={client} />
-        
     </div>
   );
 }
