@@ -68,19 +68,31 @@ export default function DenonAVRDevice(props) {
   const theme = useTheme();
   const topic = "denonavr/currentvolume";
 
+  const [updatingSlider, setUpdatingSlider] = useState(false);
   const [currentVolume, setCurrentVolume] = useState(5);
 
   const handleSliderChange = (event, newValue) => {
-    setCurrentVolume(newValue);
+      setCurrentVolume(newValue);
   };
 
   const handleSliderCommit = (event, newValue) => {
+    setUpdatingSlider(true);
     props.mqttclient.publish("denonavr/volume", newValue + '');
+    setCurrentVolume(newValue);
+    setUpdatingSlider(false);
+
+    console.log("Event: " + event)
+
+    console.log(newValue);
   };
 
   // Similar to componentDidMount and componentDidUpdate:
   useEffect(() => {
     console.log('checking volume')
+
+    if (updatingSlider) {
+      return
+    }
 
     props.mqttclient.subscribe(topic, (err) => {
       if (err) {
@@ -100,13 +112,34 @@ export default function DenonAVRDevice(props) {
   }, []);
 
   return (
-    <MediaControl 
-      Title={"Home Theatre"} 
-      handleSliderCommit={handleSliderCommit} 
-      handleSliderChange={handleSliderChange}
-      volume={currentVolume}>
-      
+    <Widget>
+        <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
+          Home Theater
+        </Typography>
+        <Typography sx={{ display: 'flex', alignItems: 'right', pl: 1, pb: 1 }} variant="body2">
+            
+        <IconButton aria-label="volumedown" id="volumedown" onClick={(e) => HandleClick("volumedown", props.mqttclient)}>
+          <VolumeDownIcon id="volumedown" />
+        </IconButton>
+        <Slider 
+            aria-label="Small" 
+            value={currentVolume}
+            onChange={handleSliderChange} 
 
-    </MediaControl>
+            onChangeCommitted={handleSliderCommit} 
+            valueLabelDisplay="auto" 
+            min={0}
+            max={75}
+            display='flex' 
+            step={0.5}
+        />
+        <IconButton aria-label="volumeup" id="volumeup" onClick={(e) => HandleClick("volumeup", props.mqttclient)}>
+          <VolumeUpIcon id="volumeup"/>
+        </IconButton>
+        <IconButton aria-label="mute" id="mute" onClick={((e) => HandleClick("mute", props.mqttclient))}>
+            <VolumeOffIcon sx={{}} />
+        </IconButton>
+        </Typography>
+    </Widget>
   );
 }

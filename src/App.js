@@ -2,6 +2,8 @@ import mqtt from "mqtt/dist/mqtt";
 import "./App.css";
 import TvDevice from './Devices/TV/Tv.js';
 import AVRDevice from './Devices/AVR/Avr.js';
+import WallPaper from './components/Layout/Wallpaper'
+import { connect } from "mqtt";
 
 const mqttAddress = process.env.REACT_APP_PIMVIEW_RABBITMQ_MQTT_ADDRESS;
 const mqttUsername = process.env.REACT_APP_PIMVIEW_RABBITMQ_MQTT_USER;
@@ -18,7 +20,7 @@ var options = {
   // choose any string you wish
   clientId: "mqttjs_" + Math.random().toString(16).substr(2, 8),
 };
-var client = mqtt.connect("mqtt://" + mqttAddress + ":" + mqttPort + "/ws", options);
+var client = connect("mqtt://" + mqttAddress + ":" + mqttPort + "/ws", options);
  
 function App() {
  
@@ -28,10 +30,12 @@ function App() {
   document.body.style.backgroundColor = "grey"
   return (
     <div className="App">
-        <h1>Pimview</h1>
-        <TvDevice mqttclient={client} />
+      <br></br>
+       <WallPaper />
+        {/* <TvDevice mqttclient={client} /> */}
         <br></br>
         <AVRDevice mqttclient={client} />
+       
     </div>
   );
 }
